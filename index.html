@@ -2,1035 +2,368 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>KIS Beacon</title>
+    <meta charset="utf-8">
+    <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width">
+    <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Use the latest (edge) version of IE rendering engine -->
+    <title></title>
+    <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <!-- Web Font / @font-face : BEGIN -->
+    <!-- NOTE: If web fonts are not required, lines 9 - 26 can be safely removed. -->
+
+    <!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
+    <!--[if mso]>
+		<style>
+			* {
+				font-family: sans-serif !important;
+			}
+		</style>
+	<![endif]-->
+
+    <!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+    <!--[if !mso]><!-->
+    <!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
+    <!--<![endif]-->
+
+    <!-- Web Font / @font-face : END -->
+
+    <!-- CSS Reset -->
     <style type="text/css">
-        /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
         
-        #outlook a {
-            padding: 0;
+        html,
+        body {
+            Margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
         }
-        /* Force Outlook to provide a "view in browser" message */
+        /* What it does: Stops email clients resizing small text. */
         
-        .ReadMsgBody {
-            width: 100%;
-        }
-        
-        .ExternalClass {
-            width: 100%;
-        }
-        /* Force Hotmail to display emails at full width */
-        
-        .ExternalClass,
-        .ExternalClass p,
-        .ExternalClass span,
-        .ExternalClass font,
-        .ExternalClass td,
-        .ExternalClass div {
-            line-height: 100%;
-        }
-        /* Force Hotmail to display normal line spacing */
-        
-        body,
-        table,
-        td,
-        p,
-        a,
-        li,
-        blockquote {
-            -webkit-text-size-adjust: 100%;
+        * {
             -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
         }
-        /* Prevent WebKit and Windows mobile changing default text sizes */
+        /* What is does: Centers email on Android 4.4 */
+        
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+        /* What it does: Stops Outlook from adding extra spacing to tables. */
         
         table,
         td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
         }
-        /* Remove spacing between tables in Outlook 2007 and up */
+        /* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+        
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            Margin: 0 auto !important;
+        }
+        
+        table table table {
+            table-layout: auto;
+        }
+        /* What it does: Uses a better rendering method when resizing images in IE. */
         
         img {
             -ms-interpolation-mode: bicubic;
         }
-        /* Allow smoother rendering of resized image in Internet Explorer */
-        /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+        /* What it does: Overrides styles added when Yahoo's auto-senses a link. */
         
-        body {
-            margin: 0;
-            padding: 0;
+        .yshortcuts a {
+            border-bottom: none !important;
         }
+        /* What it does: A work-around for iOS meddling in triggered links. */
         
-        img {
-            border: 0;
-            height: auto;
-            line-height: 100%;
-            outline: none;
-            text-decoration: none;
-        }
-        
-        table {
-            border-collapse: collapse !important;
-        }
-        
-        body,
-        #bodyTable,
-        #bodyCell {
-            height: 100% !important;
-            margin: 0;
-            padding: 0;
-            width: 100% !important;
-        }
-        /* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
-        /* ========== Page Styles ========== */
-        
-        #bodyCell {
-            padding: 20px;
-        }
-        
-        #templateContainer {
-            width: 600px;
-        }
-        /**
-			* @tab Page
-			* @section background style
-			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
-			* @theme page
-			*/
-        
-        body,
-        #bodyTable {
-            /*@editable*/
-            background-color: #DEE0E2;
-        }
-        /**
-			* @tab Page
-			* @section background style
-			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
-			* @theme page
-			*/
-        
-        #bodyCell {
-            /*@editable*/
-            border-top: 4px solid #BBBBBB;
-        }
-        /**
-			* @tab Page
-			* @section email border
-			* @tip Set the border for your email.
-			*/
-        
-        #templateContainer {
-            /*@editable*/
-            border: 1px solid #BBBBBB;
-        }
-        /**
-			* @tab Page
-			* @section heading 1
-			* @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
-			* @style heading 1
-			*/
-        
-        h1 {
-            /*@editable*/
-            color: #202020 !important;
-            display: block;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 26px;
-            /*@editable*/
-            font-style: normal;
-            /*@editable*/
-            font-weight: bold;
-            /*@editable*/
-            line-height: 100%;
-            /*@editable*/
-            letter-spacing: normal;
-            margin-top: 0;
-            margin-right: 0;
-            margin-bottom: 10px;
-            margin-left: 0;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Page
-			* @section heading 2
-			* @tip Set the styling for all second-level headings in your emails.
-			* @style heading 2
-			*/
-        
-        h2 {
-            /*@editable*/
-            color: #404040 !important;
-            display: block;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 20px;
-            /*@editable*/
-            font-style: normal;
-            /*@editable*/
-            font-weight: bold;
-            /*@editable*/
-            line-height: 100%;
-            /*@editable*/
-            letter-spacing: normal;
-            margin-top: 0;
-            margin-right: 0;
-            margin-bottom: 10px;
-            margin-left: 0;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Page
-			* @section heading 3
-			* @tip Set the styling for all third-level headings in your emails.
-			* @style heading 3
-			*/
-        
-        h3 {
-            /*@editable*/
-            color: #4178BE !important;
-            display: block;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 22px;
-            /*@editable*/
-            font-weight: 300;
-            /*@editable*/
-            line-height: 100%;
-            /*@editable*/
-            letter-spacing: normal;
-            margin-top: 0;
-            margin-right: 0;
-            margin-bottom: 10px;
-            margin-left: 0;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Page
-			* @section heading 4
-			* @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
-			* @style heading 4
-			*/
-        
-        h4 {
-            /*@editable*/
-            color: #808080 !important;
-            display: block;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 14px;
-            /*@editable*/
-            font-style: italic;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            line-height: 100%;
-            /*@editable*/
-            letter-spacing: normal;
-            margin-top: 0;
-            margin-right: 0;
-            margin-bottom: 10px;
-            margin-left: 0;
-            /*@editable*/
-            text-align: left;
-        }
-        /* ========== Header Styles ========== */
-        /**
-			* @tab Header
-			* @section preheader style
-			* @tip Set the background color and bottom border for your email's preheader area.
-			* @theme header
-			*/
-        
-        #templatePreheader {
-            /*@editable*/
-            background-color: #F4F4F4;
-            /*@editable*/
-            border-bottom: 1px solid #CCCCCC;
-        }
-        /**
-			* @tab Header
-			* @section preheader text
-			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
-			*/
-        
-        .preheaderContent {
-            /*@editable*/
-            color: #808080;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 10px;
-            /*@editable*/
-            line-height: 125%;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Header
-			* @section preheader link
-			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .preheaderContent a:link,
-        .preheaderContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .preheaderContent a .yshortcuts
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #606060;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        /**
-			* @tab Header
-			* @section header style
-			* @tip Set the background color and borders for your email's header area.
-			* @theme header
-			*/
-        
-        #templateHeader {
-            /*@editable*/
-            background-color: #F4F4F4;
-            /*@editable*/
-            border-top: 1px solid #FFFFFF;
-            /*@editable*/
-            border-bottom: 1px solid #CCCCCC;
-        }
-        /**
-			* @tab Header
-			* @section header text
-			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-			*/
-        
-        .headerContent {
-            /*@editable*/
-            color: #505050;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 20px;
-            /*@editable*/
-            font-weight: bold;
-            /*@editable*/
-            line-height: 100%;
-            /*@editable*/
-            padding-top: 0;
-            /*@editable*/
-            padding-right: 0;
-            /*@editable*/
-            padding-bottom: 0;
-            /*@editable*/
-            padding-left: 0;
-            /*@editable*/
-            text-align: left;
-            /*@editable*/
-            vertical-align: middle;
-        }
-        /**
-			* @tab Header
-			* @section header link
-			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .headerContent a:link,
-        .headerContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .headerContent a .yshortcuts
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #EB4102;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        
-        #headerImage {
-            height: auto;
-            max-width: 600px;
-        }
-        /* ========== Body Styles ========== */
-        /**
-			* @tab Body
-			* @section body style
-			* @tip Set the background color and borders for your email's body area.
-			*/
-        
-        #templateBody {
-            /*@editable*/
-            background-color: #F4F4F4;
-            /*@editable*/
-            border-top: 1px solid #FFFFFF;
-            /*@editable*/
-            border-bottom: 1px solid #CCCCCC;
-        }
-        /**
-			* @tab Body
-			* @section body text
-			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
-			* @theme main
-			*/
-        
-        .bodyContent {
-            /*@editable*/
-            color: #505050;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 16px;
-            /*@editable*/
-            line-height: 150%;
-            padding-top: 20px;
-            padding-right: 20px;
-            padding-bottom: 20px;
-            padding-left: 20px;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Body
-			* @section body link
-			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .bodyContent a:link,
-        .bodyContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .bodyContent a .yshortcuts
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #EB4102;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        
-        .bodyContent img {
-            display: inline;
-            height: auto;
-            max-width: 560px;
-        }
-        /* ========== Column Styles ========== */
-        
-        .templateColumnContainer {
-            width: 200px;
-        }
-        /**
-			* @tab Columns
-			* @section column style
-			* @tip Set the background color and borders for your email's column area.
-			*/
-        
-        #templateColumns {
-            /*@editable*/
-            background-color: #F4F4F4;
-            /*@editable*/
-            border-top: 1px solid #FFFFFF;
-            /*@editable*/
-            border-bottom: 1px solid #CCCCCC;
-        }
-        /**
-			* @tab Columns
-			* @section left column text
-			* @tip Set the styling for your email's left column content text. Choose a size and color that is easy to read.
-			*/
-        
-        .leftColumnContent {
-            /*@editable*/
-            color: #505050;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 14px;
-            /*@editable*/
-            line-height: 150%;
-            padding-top: 0;
-            padding-right: 20px;
-            padding-bottom: 20px;
-            padding-left: 20px;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Columns
-			* @section left column link
-			* @tip Set the styling for your email's left column content links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .leftColumnContent a:link,
-        .leftColumnContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .leftColumnContent a .yshortcuts
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #EB4102;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        /**
-			* @tab Columns
-			* @section center column text
-			* @tip Set the styling for your email's center column content text. Choose a size and color that is easy to read.
-			*/
-        
-        .centerColumnContent {
-            /*@editable*/
-            color: #505050;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 14px;
-            /*@editable*/
-            line-height: 150%;
-            padding-top: 0;
-            padding-right: 20px;
-            padding-bottom: 20px;
-            padding-left: 20px;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Columns
-			* @section center column link
-			* @tip Set the styling for your email's center column content links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .centerColumnContent a:link,
-        .centerColumnContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .centerColumnContent a .yshortcuts
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #EB4102;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        /**
-			* @tab Columns
-			* @section right column text
-			* @tip Set the styling for your email's right column content text. Choose a size and color that is easy to read.
-			*/
-        
-        .rightColumnContent {
-            /*@editable*/
-            color: #505050;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 14px;
-            /*@editable*/
-            line-height: 150%;
-            padding-top: 0;
-            padding-right: 20px;
-            padding-bottom: 20px;
-            padding-left: 20px;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Columns
-			* @section right column link
-			* @tip Set the styling for your email's right column content links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .rightColumnContent a:link,
-        .rightColumnContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .rightColumnContent a .yshortcuts
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #EB4102;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        
-        .leftColumnContent img,
-        .rightColumnContent img {
-            display: inline;
-            height: auto;
-            max-width: 260px;
-        }
-        /* ========== Footer Styles ========== */
-        /**
-			* @tab Footer
-			* @section footer style
-			* @tip Set the background color and borders for your email's footer area.
-			* @theme footer
-			*/
-        
-        #templateFooter {
-            /*@editable*/
-            background-color: #F4F4F4;
-            /*@editable*/
-            border-top: 1px solid #FFFFFF;
-        }
-        /**
-			* @tab Footer
-			* @section footer text
-			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
-			* @theme footer
-			*/
-        
-        .footerContent {
-            /*@editable*/
-            color: #808080;
-            /*@editable*/
-            font-family: Helvetica, 'Helvetica Neue', sans-serif;
-            /*@editable*/
-            font-size: 14px;
-            /*@editable*/
-            line-height: 150%;
-            padding-top: 20px;
-            padding-right: 20px;
-            padding-bottom: 20px;
-            padding-left: 20px;
-            /*@editable*/
-            text-align: left;
-        }
-        /**
-			* @tab Footer
-			* @section footer link
-			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-			*/
-        
-        .footerContent a:link {
-            /*@editable*/
-            color: #5A5A5A;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: none;
-        }
-        
-        .footerContent a:hover,
-        .footerContent a:visited,
-        /* Yahoo! Mail Override */
-        
-        .footerContent a .yshortcuts,
-        .footerContent a span
-        /* Yahoo! Mail Override */
-        
-        {
-            /*@editable*/
-            color: #323232;
-            /*@editable*/
-            font-weight: normal;
-            /*@editable*/
-            text-decoration: underline;
-        }
-        /* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
-        
-        @media only screen and (max-width: 480px) {
-            /* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
-            body,
-            table,
-            td,
-            p,
-            a,
-            li,
-            blockquote {
-                -webkit-text-size-adjust: none !important;
-            }
-            /* Prevent Webkit platforms from changing default text sizes */
-            body {
-                width: 100% !important;
-                min-width: 100% !important;
-            }
-            /* Prevent iOS Mail from adding padding to the body */
-            /* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
-            #bodyCell {
-                padding: 10px !important;
-            }
-            /* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
-            /* ======== Page Styles ======== */
-            /**
-				* @tab Mobile Styles
-				* @section template width
-				* @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
-				*/
-            #templateContainer {
-                max-width: 600px !important;
-                /*@editable*/
-                width: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section heading 1
-				* @tip Make the first-level headings larger in size for better readability on small screens.
-				*/
-            h1 {
-                /*@editable*/
-                font-size: 24px !important;
-                /*@editable*/
-                line-height: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section heading 2
-				* @tip Make the second-level headings larger in size for better readability on small screens.
-				*/
-            h2 {
-                /*@editable*/
-                font-size: 20px !important;
-                /*@editable*/
-                line-height: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section heading 3
-				* @tip Make the third-level headings larger in size for better readability on small screens.
-				*/
-            h3 {
-                /*@editable*/
-                font-size: 30px !important;
-                font-weight: 300 !important;
-                /*@editable*/
-                line-height: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section heading 4
-				* @tip Make the fourth-level headings larger in size for better readability on small screens.
-				*/
-            h4 {
-                /*@editable*/
-                font-size: 16px !important;
-                /*@editable*/
-                line-height: 100% !important;
-            }
-            /* ======== Header Styles ======== */
-            #templatePreheader {
-                display: none !important;
-            }
-            /* Hide the template preheader to save space */
-            /**
-				* @tab Mobile Styles
-				* @section header image
-				* @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
-				*/
-            #headerImage {
-                height: auto !important;
-                /*@editable*/
-                max-width: 600px !important;
-                /*@editable*/
-                width: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section header text
-				* @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-				*/
-            .headerContent {
-                /*@editable*/
-                font-size: 20px !important;
-                /*@editable*/
-                line-height: 125% !important;
-            }
-            /* ======== Body Styles ======== */
-            /**
-				* @tab Mobile Styles
-				* @section body text
-				* @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-				*/
-            .bodyContent {
-                /*@editable*/
-                font-size: 18px !important;
-                /*@editable*/
-                line-height: 125% !important;
-            }
-            /* ======== Column Styles ======== */
-            .templateColumnContainer {
-                display: block !important;
-                width: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section column image
-				* @tip Make the column image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
-				*/
-            .columnImage {
-                height: auto !important;
-                /*@editable*/
-                max-width: 480px !important;
-                /*@editable*/
-                width: 100% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section left column text
-				* @tip Make the left column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-				*/
-            .leftColumnContent {
-                /*@editable*/
-                font-size: 16px !important;
-                /*@editable*/
-                line-height: 125% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section center column text
-				* @tip Make the center column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-				*/
-            .centerColumnContent {
-                /*@editable*/
-                font-size: 16px !important;
-                /*@editable*/
-                line-height: 125% !important;
-            }
-            /**
-				* @tab Mobile Styles
-				* @section right column text
-				* @tip Make the right column content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
-				*/
-            .rightColumnContent {
-                /*@editable*/
-                font-size: 16px !important;
-                /*@editable*/
-                line-height: 125% !important;
-            }
-            /* ======== Footer Styles ======== */
-            /**
-				* @tab Mobile Styles
-				* @section footer text
-				* @tip Make the body content text larger in size for better readability on small screens.
-				*/
-            .footerContent {
-                /*@editable*/
-                font-size: 14px !important;
-                /*@editable*/
-                line-height: 115% !important;
-            }
-            .footerContent a {
-                display: block !important;
-            }
-            /* Place footer social and utility links on their own lines, for easier access */
+        .mobile-link--footer a,
+        a[x-apple-data-detectors] {
+            color: inherit !important;
+            text-decoration: underline !important;
         }
 
     </style>
+
+    <!-- Progressive Enhancements -->
+    <style>
+        /* What it does: Hover styles for buttons */
+        
+        a {
+            color: #4178BE;
+        }
+        
+        a:hover,
+        a:visited {
+            color: #325C80
+        }
+        
+        .button-td,
+        .button-a {
+            transition: all 100ms ease-in;
+        }
+        
+        .button-td:hover,
+        .button-a:hover {
+            background: #555555 !important;
+            border-color: #555555 !important;
+        }
+        /* Media Queries */
+        
+        @media screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+            }
+            /* What it does: Forces elements to resize to the full width of their container. Useful for resizing images beyond their max-width. */
+            .fluid,
+            .fluid-centered {
+                max-width: 100% !important;
+                height: auto !important;
+                Margin-left: auto !important;
+                Margin-right: auto !important;
+            }
+            /* And center justify these ones. */
+            .fluid-centered {
+                Margin-left: auto !important;
+                Margin-right: auto !important;
+            }
+            /* What it does: Forces table cells into full-width rows. */
+            .stack-column,
+            .stack-column-center {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                direction: ltr !important;
+            }
+            /* And center justify these ones. */
+            .stack-column-center {
+                text-align: center !important;
+            }
+            /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */
+            .center-on-narrow {
+                text-align: center !important;
+                display: block !important;
+                Margin-left: auto !important;
+                Margin-right: auto !important;
+                float: none !important;
+            }
+            table.center-on-narrow {
+                display: inline-block !important;
+            }
+        }
+
+    </style>
+
 </head>
 
-<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
-    <center>
-        <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
-            <tr>
-                <td align="center" valign="top" id="bodyCell">
-                    <!-- BEGIN TEMPLATE // -->
-                    <table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+<body bgcolor="#ffffff" width="100%" style="margin: 0;">
+    <table bgcolor="#eeeeee" cellpadding="0" cellspacing="0" border="0" height="100%" width="100%" style="border-collapse:collapse;">
+        <tr>
+            <td valign="top">
+                <center style="width: 100%;">
+
+                    <!-- Visually Hidden Preheader Text : BEGIN -->
+                    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
+                        KIS Beacon:The dawn of digital discovery
+                    </div>
+                    <!-- Visually Hidden Preheader Text : END -->
+
+                    <!-- Email Header : BEGIN -->
+                    <table align="center" width="600" class="email-container">
                         <tr>
-                            <td align="center" valign="top">
-                                <!-- BEGIN PREHEADER // -->
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader">
-                                    <tr>
-                                        <td valign="middle" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px; background-color:#ffffff;">
-                                            <img src="https://ibm.box.com/shared/static/ac7bb4kv657t0bwh1ngfwjd6extq45ex.png">
-                                        </td>
-                                        <!-- *|IFNOT:ARCHIVE_PAGE|* -->
-                                        <td valign="middle" width="180" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;background-color:#ffffff;">
-                                            Email not displaying correctly?
-                                            <br /><a href="*|ARCHIVE|*" target="_blank">View it in your browser</a>.
-                                        </td>
-                                        <!-- *|END:IF|* -->
-                                    </tr>
-                                </table>
-                                <!-- // END PREHEADER -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" valign="top">
-                                <!-- BEGIN HEADER // -->
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
-                                    <tr>
-                                        <td valign="top" class="headerContent">
-                                            <img src="https://ibm.box.com/shared/static/86ddo9ru2rct517vek39r2a9504evtel.jpg" style="max-width:600px;" id="headerImage" />
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- // END HEADER -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" valign="top">
-                                <!-- BEGIN BODY // -->
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody">
-                                    <tr>
-                                        <td valign="top" class="bodyContent" mc:edit="body_content">
-                                            <h1>Welcome to the KIS Beacon</h1>
-                                            <h3>Something to introduce your newsletter here</h3>
-                                            <p>Intently sniff hand mew hunt anything that moves spot something, big eyes, big eyes, crouch, shake butt, prepare to pounce soft kitty warm kitty little ball of furr. Shove bum in owner's face like camera lens meowwww. </p>
-
-                                            <!-- <h2>Styling Your Content</h2>
-                                            <h4>Make your email easy to read</h4> After you enter your content, highlight the text you want to style and select the options you set in the style editor in the "<em>styles</em>" drop down box. Want to <a href="http://www.mailchimp.com/kb/article/im-using-the-style-designer-and-i-cant-get-my-formatting-to-change" target="_blank">get rid of styling on a bit of text</a>, but having trouble doing it? Just use the "<em>remove formatting</em>" button to strip the text of any formatting and reset your style. -->
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- // END BODY -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" valign="top">
-                                <!-- BEGIN COLUMNS // -->
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateColumns">
-                                    <tr mc:repeatable>
-                                        <td align="center" valign="top" class="templateColumnContainer" style="padding-top:20px;">
-                                            <table border="0" cellpadding="20" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td class="leftColumnContent">
-                                                        <img src="https://ibm.box.com/shared/static/wliveb0skktucg5xp67nfqlvyx995tys.jpeg" style="max-width:160px;" class="columnImage" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="leftColumnContent">
-                                                        <h3>NWOM</h3>
-                                                        <p> <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Spit up </a> on light gray carpet instead of adjacent linoleum are noted with plus and minus signs so that you can add and subtract content blocks.
-                                                        </p>
-                                                        <p>refuse to leave cardboard box my left donut is missing, as is my right stand in front of the computer screen Cat ipsum dolor sit amet, use lap as chair. Put toy mouse in food bowl run out of litter box at full speed intently sniff hand find empty spot in cupboard and sleep all day for mew for intently stare at the same spot. Chase mice hide when guests come over play time, chase after silly colored fish toys around the house.</p>
-                                                        <p>Stares at human while pushing stuff off a table eat prawns daintily with a claw then lick paws clean wash down prawns with a lap of carnation milk then retire to the warmest spot on the couch to claw at the fabric before taking a catnap. Stare out the window eat and than sleep on your face for ignore the squirrels, you'll never catch them anyway.</p>
-
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="centerColumnContent" mc:edit="center_column_content">
-                                                        <h3>Contact</h3>
-                                                        <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Eat and than sleep</a> on your face chew iPad power cord stare at ceiling light
-
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td align="center" valign="top" class="templateColumnContainer" style="padding-top:20px;">
-                                            <table border="0" cellpadding="20" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td class="centerColumnContent">
-                                                        <img src="https://ibm.box.com/shared/static/h62edemxpbcwiyzj4d0lshgip14oku5r.jpeg" style="max-width:160px;" class="columnImage" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="centerColumnContent" mc:edit="center_column_content">
-                                                        <h3>Marketer's Workspace</h3>
-                                                        <p> <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.</p>
-                                                        <p> Howl uncontrollably for no reason have secret plans claws in your leg kick up litter hola te quiero. Meow. Mark territory leave dead animals as gifts shake treat bag, yet human is washing you why halp oh the horror flee scratch hiss bite flee in terror at cucumber discovered on floor ears back wide eyed. Make meme, make cute face who's the baby leave hair everywhere hunt anything that moves stare at the wall, play with food and get confused by dust stand in front of the computer screen rub face on everything. Jump around on couch, meow constantly until given food, eat and than sleep on your face cough furball thug cat .</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="centerColumnContent" mc:edit="center_column_content">
-                                                        <h3>Contact</h3>
-                                                        <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Eat and than sleep</a> on your face chew iPad power cord stare at ceiling light
-
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td align="center" valign="top" class="templateColumnContainer" style="padding-top:20px;">
-                                            <table border="0" cellpadding="20" cellspacing="0" width="100%">
-                                                <tr>
-                                                    <td class="rightColumnContent">
-                                                        <img src="https://ibm.box.com/shared/static/rpwwbmvt72nx0ckf4v4kf5dr31e4euoe.jpeg" style="max-width:160px;" class="columnImage" mc:label="right_column_image" mc:edit="right_column_image" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="rightColumnContent" mc:edit="right_column_content">
-                                                        <h3>Whiteboard Wednesdays</h3>
-                                                        <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.
-
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="rightColumnContent">
-                                                        <h3>Backlogs</h3>
-                                                        <img src="https://ibm.box.com/shared/static/ruam6mjl7gaku337ixbx70uf0zljtpfc.png" style="max-width:160px;" class="columnImage" mc:label="right_column_image" mc:edit="right_column_image" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="rightColumnContent" mc:edit="right_column_content">
-
-                                                        <p> <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.</p>
-
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="rightColumnContent" mc:edit="right_column_content">
-                                                        <h3>Roadmap</h3>
-                                                        <p> <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Repeatable sections</a> are noted with plus and minus signs so that you can add and subtract content blocks.</p>
-
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td valign="top" class="centerColumnContent" mc:edit="center_column_content">
-                                                        <h3>Contact</h3>
-                                                        <a href="http://kb.mailchimp.com/article/how-do-i-work-with-repeatable-content-blocks" target="_blank">Eat and than sleep</a> on your face chew iPad power cord stare at ceiling light
-
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- // END COLUMNS -->
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center" valign="top">
-                                <!-- BEGIN FOOTER // -->
-                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter">
-                                    <tbody style="background-color:#cccccc">
-                                        <tr>
-                                            <td valign="top" class="footerContent">
-                                                Past issues:&nbsp;&nbsp;&nbsp;<a href="*|FACEBOOK:PROFILEURL|*">issue 0</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="*|TWITTER:PROFILEURL|*">issue 1</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="*|FORWARD|*">issue 2</a>&nbsp;
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td valign="top" class="footerContent" style="padding-top:0;">
-                                                <a href="*|KIS TOOLS|*">Contact KIS Beacon</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!-- // END FOOTER -->
+                            <td style="padding: 20px 0; text-align: center;background-color:#ffffff; ">
+                                <img src="https://ibm.box.com/shared/static/2did0lg1wdakkgx4mvf5vm4ms3msa59b.png" width="250" height="50" alt="alt_text" border="0">
                             </td>
                         </tr>
                     </table>
-                    <!-- // END TEMPLATE -->
-                </td>
-            </tr>
-        </table>
-    </center>
+                    <!-- Email Header : END -->
+
+                    <!-- Email Body : BEGIN -->
+                    <table cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" width="600" class="email-container">
+
+                        <!-- Hero Image, Flush : BEGIN -->
+                        <tr>
+                            <td>
+                                <img src="https://ibm.box.com/shared/static/2030ni304uw41w3iddrurpoomsr2ib2j.png" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px;">
+                            </td>
+                        </tr>
+                        <!-- Hero Image, Flush : END -->
+
+                        <!-- 1 Column Text : BEGIN -->
+                        <tr>
+                            <td style="padding: 40px; text-align: center; font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555;">
+                                <h1>KIS Beacon</h1>
+                                <h3>The dawn of digital discovery</h3>
+                                <p style="padding-bottom:25px;">It is our pleasure to bring you the first issue of the KIS Beacon, a new, monthly electronic newsletter written for users of the Keyword Intelligence System (KIS) platform. In each issue, you can expect to find news, insights, tips and tricks that will help you integrate KIS into your digital content work. Thank you for being part of our community. We look forward to working with you. </p>
+                                <hr>
+
+                            </td>
+                        </tr>
+                        <!-- 1 Column Text : BEGIN -->
+
+
+
+
+
+                        <!-- 3 Even Columns : BEGIN -->
+                        <tr>
+                            <td align="center" valign="top" style="padding: 10px;">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <!-- Column : BEGIN -->
+                                        <td valign="top" width="33.33%" class="stack-column-center">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td style="padding: 10px; text-align: center">
+                                                        <img src="https://ibm.box.com/shared/static/lsuots8e4clu3azfj5vlwsdgcgrgue4p.png" width="170" height="170" alt="alt_text" border="0" class="fluid">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                                        <h3>NWOM &mdash; <br>See you at the summits</h3>
+                                                        <p> From building data-driven cohorts to optimizing the performance of your campaigns, the New Work of Marketing demands that data fuel the decisions you make. At many of the steps, the Keyword Intelligence System is your source of not only keyword data, but insights you need:
+                                                        </p>
+                                                        <ul style=" list-style-position: inside;padding-left:0;">
+                                                            <li>Inform your cohort development </li>
+                                                            <li>Map your campaign across the buy cycle </li>
+                                                            <li>Craft your value proposition</li>
+                                                            <li>Understand your competitive landscape </li>
+                                                            <li>Track your campaign’s performance</li>
+
+                                                            </li>
+                                                        </ul>
+                                                        <p>To help you unlock the potential of KIS, we’re participating in the NWoM Summit series. Our most recent stop was the Commerce Summit in Atlanta and we plan to support the upcoming Mobile/Social Summit in Boston and the Systems Summit in Austin. Look for us in the Demo Zone.</p>
+                                                        <p>If you can’t make one of these Summits or just can’t wait to get started, reach out! <a href="mailto:ty.kelly@globalstrategies.com">Email our chief trainer, Ty Kelly</a> and we’ll make it happen.</p>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <!-- Column : END -->
+                                        <!-- Column : BEGIN -->
+                                        <td valign="top" width="33.33%" class="stack-column-center">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td style="padding: 10px; text-align: center">
+                                                        <img src="https://ibm.box.com/shared/static/bjh26tax4mwjf8q29gt9ugb8fxm7awut.png" width="170" height="170" alt="alt_text" border="0" class="fluid">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                                        <h3>Marketer Workspace &mdash; Insights Direct to You</h3>
+                                                        <p> Did you know that you can access KIS insights directly from the Marketer Workspace? There is a direct link to KIS in the Apps drop down so you can get to your projects and, more importantly, your insights faster and more easily than ever. </p>
+                                                        <p>This is only the beginning of the integration of KIS and Marketer Workspace. We’re working on an API between the two platforms that will pipe the insights you need directly to you at the step you need them. Watch this space for updates on new developments.</p>
+                                                        <p><a href="https://esl003.somerslab.ibm.com/campaign/manager/#/list">Try out KIS on Marketer's Workspace</a></p>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <!-- Column : END -->
+                                        <!-- Column : BEGIN -->
+                                        <td valign="top" width="33.33%" class="stack-column-center">
+                                            <table cellspacing="0" cellpadding="0" border="0">
+                                                <tr>
+                                                    <td style="padding: 10px; text-align: center">
+                                                        <img src="https://ibm.box.com/shared/static/f1tme16epwyr9mlu1yfsprdfgk88odyd.png" width="170" height="170" alt="alt_text" border="0" class="fluid">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                                        <h3>Whiteboard Wednesdays</h3>
+                                                        <p>How do keywords help build data-driven cohorts? IBM Distinguished Technical Marketer James Mathewson shows you why they’re a key building block and how KIS can help. </p>
+                                                        <p style="padding-bottom:25px">{video link}</p>
+                                                        <hr>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                                        <h3>What’s Cookin’?</h3>
+                                                        <p style="padding-bottom:25px">Rome wasn’t built in a day and neither was KIS. We’re constantly developing KIS to add new capabilities and improve utility. Visit the <a href="https://w3-connections.ibm.com/communities/service/html/communitystart?communityUuid=4c764c3a-84fc-4a91-9963-7f44b802f326">KIS Community</a> to see where we’ve been and where we’re going. </p>
+                                                        <hr>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 0 10px 10px; text-align: left;" class="center-on-narrow">
+                                                        <h3>Reach out</h3>
+                                                        <p style="padding-bottom:10px">To request access to KIS, <a href="mailto:Support@RioSEO.com">email Support@RioSEO.com</a></p>
+                                                        <hr>
+                                                        <p style="padding-bottom:10px">For training and enablement, <a href="mailto:ty.kelley@GlobalStrategies.com">email Ty Kelly</a></p>
+                                                        <hr>
+                                                        <p>For more about KIS, <a href="mailto:dbianch@us.ibm.com">email Damien Bianchi</a></p>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <!-- Column : END -->
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- 3 Even Columns : END -->
+
+                        <!-- Thumbnail Left, Text Right : BEGIN -->
+
+                        <tr>
+                            <td dir="ltr" align="center" valign="top" width="100%" style="padding: 10px;">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tr>
+
+                                        <!-- Column : BEGIN -->
+                                        <td width="100%" class="stack-column-center">
+                                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                <tr>
+                                                    <td dir="ltr" valign="top" style="font-family: sans-serif; font-size: 15px; mso-height-rule: exactly; line-height: 20px; color: #555555; padding: 10px; text-align: left;" class="center-on-narrow">
+                                                        <hr>
+                                                        <p style="padding-top:25px;">
+                                                            <strong style="color:#111111;">Past issues: </strong> &nbsp;&nbsp;&nbsp;
+                                                            <a href="*|FACEBOOK:PROFILEURL|*">issue 0</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="*|TWITTER:PROFILEURL|*">issue 1</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="*|FORWARD|*">issue 2</a>&nbsp;</p>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <!-- Column : END -->
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!-- Thumbnail Left, Text Right : END -->
+
+
+
+                    </table>
+                    <!-- Email Body : END -->
+
+                    <!-- Email Footer : BEGIN -->
+                    <table align="center" width="600" class="email-container">
+                        <tr>
+                            <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; mso-height-rule: exactly; line-height:18px; text-align: center; color: #888888;">
+                                <webversion style="color:#cccccc; text-decoration:underline; font-weight: bold;">View as a Web Page</webversion>
+                                <br>
+
+                                <br><span class="mobile-link--footer"><a href="*|KIS TOOLS|*">Contact KIS Beacon</a></span>
+
+                                <br>
+                                <br>
+                                <unsubscribe style="color:#888888; text-decoration:underline;">unsubscribe</unsubscribe>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Email Footer : END -->
+
+                </center>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
